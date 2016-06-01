@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
+    url(r'^post/(\d+)$', views.post_details, name='post_details'),
 ]
 
 if settings.DEBUG is True:
