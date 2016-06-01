@@ -1,0 +1,27 @@
+{% if latest_post_list %}
+    <ul>
+    {% for post in latest_post_list %}
+        <li>
+        	<a href="">{{ post.title }}</a>
+            <!-- <img src="{{ post.media.url }}" /> -->
+            <ul>
+	            {% for comment in post.comment_set.all %}
+
+	            	<li>
+	            		-> {{ comment.author_name }} {{ comment.content }}
+	            		<ul>
+		            		{% for reply in comment.comment_set.all %}
+			            		<li>
+			            			{{ reply.content }}
+			            		</li>
+		            		{% endfor %}
+	            		</ul>
+	            	</li>
+	            {% endfor %}
+        	</ul>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No post are available.</p>
+{% endif %}
