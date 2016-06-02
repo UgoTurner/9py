@@ -3,7 +3,7 @@ from django.db import models
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    media = models.ImageField()
+    media = models.ImageField(upload_to='ninepy/')
     publication_date = models.DateTimeField('date published')
     author_name = models.CharField(max_length=50)
     vote_count = models.IntegerField(default=0)

@@ -10,9 +10,6 @@ from datetime import datetime
 class Command(BaseCommand):
     help = ''
 
-    # def add_arguments(self, parser):
-    #     parser.add_argument('poll_id', nargs='+', type=int)
-
     def handle(self, *args, **options):
         pagination = ''
         for i in range(0, 1):
@@ -21,10 +18,11 @@ class Command(BaseCommand):
             if posts['status'] == 200:
                 pagination = posts['paging']['next']
                 for post in posts['data']:
-
+                    
+                    #post infos :
                     p = Post(title=post['caption'])
                     p.publication_date = timezone.now()
-                    p.vote_count = 2
+                    p.vote_count = post['votes']['count']
 
                     #images :
                     name = urlparse(post['images']['normal']).path.split('/')[-1]
@@ -46,7 +44,6 @@ class Command(BaseCommand):
                         if 'children' in comt:
                             try:
                                 for childComt in comt['children']['data']:
-                                    print(childComt['user']['displayName'])
                                     crep = Comment()
                                     crep.content = childComt['text']
                                     crep.publication_date = timezone.make_aware(datetime.fromtimestamp(childComt['timestamp']), timezone.get_current_timezone())

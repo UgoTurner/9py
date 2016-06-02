@@ -1,27 +1,39 @@
-{% if latest_post_list %}
-    <ul>
-    {% for post in latest_post_list %}
-        <li>
-        	<a href="">{{ post.title }}</a>
-            <!-- <img src="{{ post.media.url }}" /> -->
-            <ul>
-	            {% for comment in post.comment_set.all %}
+{% extends 'ninepy/base.html' %}
 
-	            	<li>
-	            		-> {{ comment.author_name }} {{ comment.content }}
-	            		<ul>
-		            		{% for reply in comment.comment_set.all %}
-			            		<li>
-			            			{{ reply.content }}
-			            		</li>
-		            		{% endfor %}
-	            		</ul>
-	            	</li>
-	            {% endfor %}
-        	</ul>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No post are available.</p>
-{% endif %}
+{% block content %}
+
+	{% if latest_post_list %}
+	    {% for post in latest_post_list %}
+	    	<div class="row">
+			  <div class="col-sm-12 col-md-12">
+			    <div class="frame">
+			        <h3><a href="{% url 'post_details' post_id=post.id %}">{{ post.title }}</a></h3>
+			     	<img src="{{ post.media.url }}" />
+			     	<div class="caption">
+				        <p>
+				        	<a href="#" class="btn btn-primary" role="button">Button</a> 
+				        	<a href="#" class="btn btn-default" role="button">Button</a>
+				        </p>
+				    </div>		      
+			    </div>
+			  </div>
+			</div>	        
+	    {% endfor %}
+	{% else %}
+	    <p>No post are available.</p>
+	{% endif %}
+{% endblock %}
+
+<!-- {% for comment in post.comment_set.all %}
+
+		            	<li>
+		            		-> {{ comment.author_name }} {{ comment.content }}
+		            		<ul>
+			            		{% for reply in comment.comment_set.all %}
+				            		<li>
+				            			{{ reply.content }}
+				            		</li>
+			            		{% endfor %}
+		            		</ul>
+		            	</li>
+		            {% endfor %} -->

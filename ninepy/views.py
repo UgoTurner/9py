@@ -13,7 +13,7 @@ def index(request):
 def post_details(request, post_id):
     try:
         post_details = Post.objects.get(pk=post_id)
-        context = {'post_details': post_details}
+        context = {'post': post_details}
     except Post.DoesNotExist:
         raise Http404("Post does not exist")
     return render(request, 'ninepy/post_details.html', context)
